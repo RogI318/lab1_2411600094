@@ -1,0 +1,140 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #DCE1DE;
+    color:#1b4544;
+    line-height: center;
+    padding: 20px;
+}
+
+header{
+    background-color: #23241f;
+    color: #DCE1DE;
+    padding: 30px 20px;
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+}
+
+header h1{
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+nav{
+    background-color:#1F2421;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+nav a{
+    color: #9CC5A1;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0,3s ease; 
+}
+
+main{
+    background-color: #9CC5A1;
+    padding: 30px;
+    border-radius: 0 0 10px 10px;
+    margin-bottom: 20px;   
+    
+
+}
+section{
+   background-color: #dbf3e4;
+   padding: 25px;
+   margin-bottom: 25px;
+   border-radius: 8px;
+   border-left: 5px solid #216869;
+}
+
+section h2{
+    color: #216869;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #d4e6f1;
+    padding-bottom: 10px;
+}
+
+aside{
+    background-color: #49A078;
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 2px solid #216869;
+}
+aside h3{
+    color: #DCE1DE;
+    margin-bottom: 20px;
+}
+
+footer{
+    background-color: #1F2421;
+    color: #DCE1DE;
+    text-align: center;
+    padding: 20px;
+    border-radius: 8px;
+    font-size: 0.9em;
+}
+ul{
+    list-style-type: square;
+    padding-left: 25px;
+}
+
+ul li{
+    margin: 8px 0;
+    color: #1F2421;
+}
+
+.highlight{
+    color: #9CC5A1;
+    font-weight: bold;
+}
+
+.project-item{
+    background-color: #f8f9fa;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #d4e6f1;
+}
+.project-item h3{
+    color: #1a5276;
+}
+.button{
+    display: inline-block;
+    background-color: #1F2421;
+    color: #DCE1DE;
+    padding: 8px 20px;
+    border-radius: 5px;
+    text-decoration: name;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+
+.button:hover{
+    background-color: #216869;
+}
+
+
+/* Color scheme that I used https://coolors.co/1f2421-216869-49a078-9cc5a1-dce1de
+
+Color Name |  Hex Code  |  Usage
+Primary    |  #1F2421   |  headers, navigation, footers
+Secondary  |  #9CC5A1   |  page background, links, highlights
+Background |  #dbf3e4   |  Section Background
+Text       |  #1b4544   |  Main Text
+Accent     |  #216869   |  Borders
+light      |  #DCE1DE   |  light text, backgrounds
+Accent     |            |
