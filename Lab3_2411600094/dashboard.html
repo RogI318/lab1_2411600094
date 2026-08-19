@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
@@ -25,9 +26,7 @@
                         </span>
                     </li>
                     <li class="nav-item">
-                        <button class="btn btn-outline-light btn-sm" id="logoutBtn">
-                            Logout
-                        </button>
+                        <button class="btn btn-outline-light btn-sm" id="logoutBtn">Logout</button>
                     </li>
                 </ul>
             </div>
@@ -41,32 +40,32 @@
                 <div class="position-sticky">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">
+                            <a class="nav-link active" href="#dashboard">
                                 Dashboard
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="#profile">
                                 Profile
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="#courses">
                                 Courses
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="#assignment">
                                 Assignments
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="#schedule">
                               Schedule
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-danger" href="#" id="logoutLink">
+                            <a class="nav-link text-danger" href="#logout" id="logoutLink">
                                 Logout
                             </a>
                         </li>
@@ -86,7 +85,7 @@
                     <div class="col-md-3 mb-3">
                         <div class="card stat-card text-center shadow-hover border-accent">
                             <div class="card-body">
-                                <h5 class="card-title" id="stat1-title">📚 GPA</h5>
+                                <h5 class="card-title text-muted" id="stat1-title">📚 GPA</h5>
                                 <h2 class="card-text fw-bold text-primary" id="stat1-value">0.00</h2>
                                 <small>Overall Grade Point Average</small>
                             </div>
@@ -95,7 +94,7 @@
                     <div class="col-md-3 mb-3">
                         <div class="card stat-card text-center shadow-hover border-primary-custom">
                             <div class="card-body">
-                                <h5 class="card-title" id="stat2-title">📖 Courses</h5>
+                                <h5 class="card-title text-muted" id="stat2-title">📖 Courses</h5>
                                 <h2 class="card-text fw-bold text-primary" id="stat2-value">0</h2>
                                 <small>Active Enrollments</small>
                             </div>
@@ -104,7 +103,7 @@
                     <div class="col-md-3 mb-3">
                         <div class="card stat-card text-center shadow-hover border-success-custom">
                             <div class="card-body">
-                                <h5 class="card-title" id="stat3-title">📝 Assignments</h5>
+                                <h5 class="card-title text-muted" id="stat3-title">📝 Assignments</h5>
                                 <h2 class="card-text fw-bold text-success" id="stat3-value">0</h2>
                                 <small>Pending Tasks</small>
                             </div>
@@ -113,7 +112,7 @@
                     <div class="col-md-3 mb-3">
                         <div class="card stat-card text-center shadow-hover border-accent">
                             <div class="card-body">
-                                <h5 class="card-title" id="stat4-title">✅ Attendance</h5>
+                                <h5 class="card-title text muted" id="stat4-title">✅ Attendance</h5>
                                 <h2 class="card-text fw-bold text-warning" id="stat4-value">0%</h2>
                                 <small>This Semester</small>
                             </div>
@@ -137,7 +136,6 @@
                                     </tr>
                                 </thead>
                                 <tbody id="activityTableBody">
-                                    <!-- Dynamic content inserted by JavaScript -->
                                 </tbody>
                             </table>
                         </div>

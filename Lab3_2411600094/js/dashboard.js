@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
+
     // Check authentication
     const isLoggedIn = localStorage.getItem('isLoggedIn');
     if (isLoggedIn !== 'true') {
@@ -44,18 +45,21 @@ function updateGreeting(username) {
 function updateStatistics() {
     // Student Portal statistics
     const stats = [
-        {title: '📚 GPA', value: '3.75', color: 'text-primary'},
-        {title: '📖 Courses', value: '6', color: 'text-primary'},
-        {title: '📝 Assignments', value: '4', color: 'text-success'},
-        {title: '✅ Attendance', value: '92%', color: 'text-warning'}
+        {title: 'GPA', value: '3.35', color: 'text-primary', icon: '📚 '},
+        {title: 'Courses', value: '6', color: 'text-primary', icon: '📖'},
+        {title: 'Assignments', value: '4', color: 'text-success', icon: '📝'},
+        {title: 'Attendance', value: '92%', color: 'text-warning', icon: '✅'}
     ];
+      
+       const cardTitles = document.querySelectorAll('[id^= "stat"][id$= "-title"]');
+       const cardValues = document.querySelectorAll('[id^= "stat"][id$= "-value"]');
 
     stats.forEach((stat, index) => {
         const titleElement = document.getElementById(`stat${index + 1}-title`);
         const valueElement = document.getElementById(`stat${index + 1}-value`);
 
         if (titleElement) {
-            titleElement.textContent = stat.title;
+            titleElement.textContent = `${stat.icon} ${stat.title}`;
         }
         if (valueElement) {
             valueElement.textContent = stat.value;
@@ -70,12 +74,12 @@ function populateActivityTable() {
     if (!tableBody) return;
 
     const activities = [
-        {date: '2026-08-18 14:30', activity: 'Submitted assignment for Web Development', status: 'Completed'},
-        {date: '2026-08-18 11:15', activity: 'Attended Data Structures lecture', status: 'Present'},
-        {date: '2026-08-17 16:00', activity: 'Quiz scheduled for Friday - Algorithms', status: 'Pending'},
+        {date: '2026-08-18 14:30', activity: 'Submitted assignment for Web Systems and Technologies', status: 'Completed'},
+        {date: '2026-08-18 11:15', activity: 'Attended Systems Analysis & Design lecture', status: 'Present'},
+        {date: '2026-08-17 16:00', activity: 'Quiz scheduled for Friday - Quantitative Methods', status: 'Pending'},
         {date: '2026-08-17 09:30', activity: 'Project proposal approved by professor', status: 'Approved'},
-        {date: '2026-08-16 13:45', activity: 'Submitted Database Systems project', status: 'Completed'},
-        {date: '2026-08-16 10:00', activity: 'Missed programming workshop', status: 'Absent'}
+        {date: '2026-08-16 13:45', activity: 'Submitted Advance Database Systems project', status: 'Completed'},
+        {date: '2026-08-16 10:00', activity: 'Missed Systems Integration and Architecture lecture', status: 'Absent'}
     ];
 
     tableBody.innerHTML = '';
@@ -109,7 +113,7 @@ function setupLogout() {
     const logoutLink = document.getElementById('logoutLink');
 
     function performLogout(e) {
-        if (e) e.preventDefault();
+         e.preventDefault();
 
         localStorage.removeItem('isLoggedIn');
         localStorage.removeItem('user');

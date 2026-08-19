@@ -23,7 +23,7 @@ body {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 .login-page{
-    background: linear-gradient(135deg, var(--theme-primary), var(--theme-secondary));
+    background: linear-gradient(135deg, var(--theme-background), var(--theme-accent));
     min-height: 100vh;
 }
 
@@ -37,6 +37,12 @@ body {
 .login-card .card-header{
     background: linear-gradient(135deg, var(--theme-primary), var(--theme-secondary));
     border-bottom: none;
+}
+
+.sidebar {
+    background-color: #FFE5EC;
+    border-right: 1px solid rgba(0, 0, 0, 0.01);
+    box-shadow: 2px 0 5px rgba(247, 94, 165, 0.39)
 }
 
 .sidebar .nav-link {
@@ -54,7 +60,7 @@ body {
 
 .sidebar .nav-link.active{
     background-color: var(--theme-primary);
-    color: #ffffff
+    color: #ffffff;
 }
 
 .sidebar .nav-link.tet-danger:hover {
@@ -76,7 +82,7 @@ body {
 }
 
 .stat-card .card-body{
-    padding: 1.Srem;
+    padding: 1.5Srem;
 }
 
 .stat-card .card-title {
@@ -162,3 +168,16 @@ body {
     background: var(--theme-primary);
    
 }
+
+
+
+/* The scheme color I use is https://coolors.co/palette/ffe5ec-ffc2d1-ffb3c6-ff8fab-fb6f92
+
+Color Name  |  Hex Code    |     Usage
+Primary     |  #FB6F92     |  Headers, navigation, primary buttons, active sidebar links
+Secondary   |  #FF8FAB     |  Accents, links, secondary buttons, gradients
+Background  |  #FFE5EC     |  Page background
+Text        |  #5a3d4a     |  Main text, body text
+Accent      |  #FFB3C6     |  Highlights, border accents, important numbers
+Light       |  #FFC2D1     |  Section backgrounds, card backgrounds, hover states
+Accent      

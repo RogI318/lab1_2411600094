@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+
     const loginBtn = document.getElementById('loginBtn');
     const usernameInput = document.getElementById('username');
     const passwordInput = document.getElementById('password');
@@ -32,8 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
             showFeedback('Login successful! Redirecting...', 'success');
 
             setTimeout(function() {
-                window.location.href = 'dashboard.html';
-            }, 1000);
+                window.location.href = 'dashboard.html'; }, 1000);
         } else {
             showFeedback('Invalid username or password. Please try again.', 'danger');
         }
