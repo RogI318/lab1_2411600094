@@ -28,10 +28,10 @@ const DataManager = (function() {
         courses: [
             { id: 1, name: 'Web Systems and Technologies', code: 'WST101', credits: 3, grade: 'A', gradeValue: 4.0, instructor: 'Prof. Santos', schedule: 'MW 10:00-11:30' },
             { id: 2, name: 'Systems Analysis and Design', code: 'SAD201', credits: 3, grade: 'B+', gradeValue: 3.5, instructor: 'Prof. Reyes', schedule: 'TTh 13:00-14:30' },
-            { id: 3, name: 'Quantitative Methods', code: 'QM301', credits: 3, grade: 'B', gradeValue: 3.0, instructor: 'Prof. Garcia', schedule: 'MW 14:00-15:30' },
+            { id: 3, name: 'Quantitative Methods', code: 'QM301', credits: 2, grade: 'B', gradeValue: 3.0, instructor: 'Prof. Garcia', schedule: 'MW 14:00-15:30' },
             { id: 4, name: 'Advanced Database Systems', code: 'ADS401', credits: 3, grade: 'A-', gradeValue: 3.7, instructor: 'Prof. Cruz', schedule: 'TTh 10:00-11:30' },
             { id: 5, name: 'Systems Integration and Architecture', code: 'SIA501', credits: 3, grade: 'C+', gradeValue: 2.5, instructor: 'Prof. Mendoza', schedule: 'F 09:00-12:00' },
-            { id: 6, name: 'Network Security', code: 'NS601', credits: 3, grade: 'C', gradeValue: 2.0, instructor: 'Prof. Torres', schedule: 'MW 16:00-17:30' }
+            { id: 6, name: 'Network Security', code: 'NS601', credits: 1, grade: 'C', gradeValue: 2.0, instructor: 'Prof. Torres', schedule: 'MW 16:00-17:30' }
         ],
         assignments: [
             { id: 1, courseId: 1, title: 'HTML/CSS Project', dueDate: getDateDays(1), status: 'Pending', score: null },

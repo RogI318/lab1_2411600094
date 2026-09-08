@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         await updateGreeting(username);
         await updateStatistics();
         await populateActivityTable();
+        await renderCoursesTable();  // NEW: Render courses table
         await renderAlerts();
         setupLogout();
         setupFiltersAndSearch();
@@ -46,6 +47,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         // Listen for data filter events
         document.addEventListener('dataFiltered', function() {
             populateActivityTable();
+            renderCoursesTable();  // NEW: Update courses table
             updateResultCount();
         });
 
@@ -53,6 +55,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         document.addEventListener('dataUpdated', function(e) {
             updateStatistics();
             populateActivityTable();
+            renderCoursesTable();  // NEW: Update courses table
             renderAlerts();
             ChartManager.updateCharts();
             updateResultCount();
@@ -64,6 +67,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         document.addEventListener('dataRefreshed', function() {
             updateStatistics();
             populateActivityTable();
+            renderCoursesTable();  // NEW: Update courses table
             renderAlerts();
             ChartManager.updateCharts();
             updateResultCount();
@@ -190,6 +194,56 @@ async function populateActivityTable() {
     }
 }
 
+/**
+ * Render filtered courses table - NEW
+ */
+async function renderCoursesTable() {
+    const tableBody = document.getElementById('coursesTableBody');
+    const courseCount = document.getElementById('courseCount');
+    const noCoursesFound = document.getElementById('noCoursesFound');
+    
+    if (!tableBody) return;
+
+    try {
+        const courses = await DataManager.getFilteredCourses();
+        console.log('Filtered courses:', courses);
+        
+        if (courseCount) {
+            courseCount.textContent = `${courses.length} course${courses.length !== 1 ? 's' : ''}`;
+        }
+
+        if (courses.length === 0) {
+            tableBody.innerHTML = '';
+            if (noCoursesFound) noCoursesFound.classList.remove('d-none');
+            return;
+        }
+
+        if (noCoursesFound) noCoursesFound.classList.add('d-none');
+
+        tableBody.innerHTML = '';
+
+        courses.forEach(course => {
+            const row = document.createElement('tr');
+            
+            let gradeColor = 'text-success';
+            if (course.gradeValue < 2.5) gradeColor = 'text-danger';
+            else if (course.gradeValue < 3.0) gradeColor = 'text-warning';
+            
+            row.innerHTML = `
+                <td><strong>${course.code}</strong></td>
+                <td>${course.name}</td>
+                <td><span class="badge bg-primary">${course.credits}</span></td>
+                <td class="${gradeColor} fw-bold">${course.grade}</td>
+                <td>${course.instructor}</td>
+            `;
+
+            tableBody.appendChild(row);
+        });
+    } catch (error) {
+        console.error('Error rendering courses table:', error);
+    }
+}
+
 function updateResultCount() {
     const resultCount = document.getElementById('resultCount');
     if (resultCount) {
@@ -262,7 +316,16 @@ function setupFiltersAndSearch() {
             DataManager.setFilter('minCredits', minCredits || null);
             DataManager.setFilter('maxCredits', maxCredits || null);
             
-            showToast('Filters applied!', 'success');
+            // Show detailed feedback
+            let message = 'Filters applied!';
+            if (minCredits && maxCredits) {
+                message = `📊 Showing courses with ${minCredits}-${maxCredits} credits`;
+            } else if (minCredits) {
+                message = `📊 Showing courses with ${minCredits}+ credits`;
+            } else if (maxCredits) {
+                message = `📊 Showing courses with ${maxCredits} or fewer credits`;
+            }
+            showToast(message, 'success');
         });
     }
 
@@ -322,6 +385,7 @@ function setupRefresh() {
             await DataManager.refresh();
             await updateStatistics();
             await populateActivityTable();
+            await renderCoursesTable();
             await renderAlerts();
             await ChartManager.updateCharts();
             await setupPerformanceAlert();

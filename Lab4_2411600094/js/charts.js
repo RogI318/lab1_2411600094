@@ -17,9 +17,9 @@ const ChartManager = (function() {
         accent: '#FFB3C6',
         light: '#FFC2D1',
         background: '#FFE5EC',
-        success: '#28a745',
-        warning: '#f3a712',
-        danger: '#dc3545',
+        success: '#e254cb',
+        warning: '#6849af',
+        danger: '#dc3589',
         info: '#17a2b8'
     };
 
@@ -172,8 +172,8 @@ const ChartManager = (function() {
                     datasets: [{
                         data: sortedData,
                         backgroundColor: sortedData.length > 1 ? [
-                            '#28a745', '#5cb85c', '#f0ad4e', '#f3a712', '#f39c12',
-                            '#e67e22', '#d35400', '#e74c3c', '#c0392b', '#dc3545'
+                            '#db3295', '#d32abc', '#ec6ec2', '#bb59be', '#ac75cc',
+                            '#ad3e76', '#d35400', '#e74c3c', '#c0392b', '#dc3545'
                         ] : ['#ddd'],
                         borderWidth: 2,
                         borderColor: '#fff'
@@ -215,10 +215,10 @@ const ChartManager = (function() {
                         label: 'Grade Points',
                         data: data,
                         backgroundColor: data.map(value => {
-                            if (value >= 3.5) return '#28a745';
-                            if (value >= 3.0) return '#5cb85c';
-                            if (value >= 2.5) return '#f0ad4e';
-                            if (value >= 2.0) return '#f39c12';
+                            if (value >= 3.5) return '#d32abc';
+                            if (value >= 3.0) return '#bb4c8d';
+                            if (value >= 2.5) return '#ec6ec2';
+                            if (value >= 2.0) return '#ac75cc';
                             return '#dc3545';
                         }),
                         borderColor: '#fff',

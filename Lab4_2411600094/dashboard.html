@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
     <!-- Navbar -->
@@ -78,9 +80,10 @@
 
             <!-- Main Content -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
-                
+
                 <!-- Welcome Greeting -->
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
                     <h2 id="greeting" class="fw-bold"></h2>
                     <div>
                         <button class="btn btn-outline-primary btn-sm me-2" id="exportBtn">
@@ -96,7 +99,8 @@
                 <div class="row mb-4">
                     <div class="col-12">
                         <div class="card shadow-hover">
-                            <div class="card-header bg-gradient-primary text-white d-flex justify-content-between align-items-center">
+                            <div
+                                class="card-header bg-gradient-primary text-white d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0">
                                     <i class="bi bi-bell-fill me-2"></i>Alert Center
                                 </h5>
@@ -164,7 +168,8 @@
                 <div class="row mb-4">
                     <div class="col-lg-6 mb-4">
                         <div class="card shadow-hover">
-                            <div class="card-header bg-gradient-primary text-white d-flex justify-content-between align-items-center">
+                            <div
+                                class="card-header bg-gradient-primary text-white d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0"><i class="bi bi-pie-chart-fill me-2"></i>Grade Distribution</h5>
                             </div>
                             <div class="card-body" style="height: 300px;">
@@ -174,7 +179,8 @@
                     </div>
                     <div class="col-lg-6 mb-4">
                         <div class="card shadow-hover">
-                            <div class="card-header bg-gradient-primary text-white d-flex justify-content-between align-items-center">
+                            <div
+                                class="card-header bg-gradient-primary text-white d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0"><i class="bi bi-bar-chart-fill me-2"></i>Course Performance</h5>
                             </div>
                             <div class="card-body" style="height: 300px;">
@@ -188,7 +194,8 @@
                 <div class="row mb-4">
                     <div class="col-lg-6 mb-4">
                         <div class="card shadow-hover">
-                            <div class="card-header bg-gradient-primary text-white d-flex justify-content-between align-items-center">
+                            <div
+                                class="card-header bg-gradient-primary text-white d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0"><i class="bi bi-check2-circle me-2"></i>Assignment Status</h5>
                             </div>
                             <div class="card-body" style="height: 300px;">
@@ -198,7 +205,8 @@
                     </div>
                     <div class="col-lg-6 mb-4">
                         <div class="card shadow-hover">
-                            <div class="card-header bg-gradient-primary text-white d-flex justify-content-between align-items-center">
+                            <div
+                                class="card-header bg-gradient-primary text-white d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0"><i class="bi bi-clock-history me-2"></i>Attendance Trend</h5>
                             </div>
                             <div class="card-body" style="height: 300px;">
@@ -227,31 +235,34 @@
                                     <option value="Approved">Approved</option>
                                 </select>
                             </div>
-                            
+
                             <!-- Search -->
                             <div class="col-md-4">
                                 <label class="form-label fw-semibold">Search</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="searchInput" placeholder="Search activities...">
+                                    <input type="text" class="form-control" id="searchInput"
+                                        placeholder="Search activities...">
                                     <button class="btn btn-primary" id="searchBtn">
                                         <i class="bi bi-search"></i>
                                     </button>
                                 </div>
                             </div>
-                            
+
                             <!-- MIN CREDIT HOURS FILTER -->
                             <div class="col-md-2">
                                 <label class="form-label fw-semibold">Min Credits</label>
-                                <input type="number" class="form-control" id="minCreditsFilter" placeholder="0" min="0" max="6">
+                                <input type="number" class="form-control" id="minCreditsFilter" placeholder="0" min="0"
+                                    max="6">
                             </div>
-                            
+
                             <!-- MAX CREDIT HOURS FILTER -->
                             <div class="col-md-2">
                                 <label class="form-label fw-semibold">Max Credits</label>
-                                <input type="number" class="form-control" id="maxCreditsFilter" placeholder="6" min="0" max="6">
+                                <input type="number" class="form-control" id="maxCreditsFilter" placeholder="6" min="0"
+                                    max="6">
                             </div>
                         </div>
-                        
+
                         <!-- Result Count & Buttons -->
                         <div class="row mt-3">
                             <div class="col-md-12 d-flex align-items-center">
@@ -266,6 +277,41 @@
                         </div>
                     </div>
                 </div>
+
+
+                <!-- Filtered Courses Table (NEW) -->
+                <div class="card shadow-hover mb-4">
+                    <div
+                        class="card-header bg-gradient-primary text-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0"><i class="bi bi-book me-2"></i>Filtered Courses</h5>
+                        <span class="badge bg-light text-dark" id="courseCount">0 courses</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover" id="coursesTable">
+                                <thead>
+                                    <tr>
+                                        <th>Course Code</th>
+                                        <th>Course Name</th>
+                                        <th>Credits</th>
+                                        <th>Grade</th>
+                                        <th>Instructor</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="coursesTableBody">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="noCoursesFound" class="text-center py-3 d-none">
+                            <i class="bi bi-inbox fs-1 d-block text-muted"></i>
+                            <p class="text-muted">No courses found matching your credit filter criteria.</p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
 
                 <!-- Recent Activity Table -->
                 <div class="card shadow-hover">
@@ -295,12 +341,14 @@
 
                 <!-- Real-time Update Notification -->
                 <div id="notificationToast" class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-                    <div class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast align-items-center text-white bg-success border-0" role="alert"
+                        aria-live="assertive" aria-atomic="true">
                         <div class="d-flex">
                             <div class="toast-body" id="toastMessage">
                                 <i class="bi bi-info-circle-fill me-2"></i>New update received!
                             </div>
-                            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                            <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                                data-bs-dismiss="toast"></button>
                         </div>
                     </div>
                 </div>
@@ -310,10 +358,11 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-     <!-- Chart.js CDN -->
+    <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="js/dataManager.js"></script>
     <script src="js/charts.js"></script>
     <script src="js/dashboard.js"></script>
 </body>
+
 </html>
