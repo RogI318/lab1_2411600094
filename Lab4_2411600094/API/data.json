@@ -1,0 +1,264 @@
+{
+    "courses": [
+        {
+            "id": 1,
+            "name": "Web Systems and Technologies",
+            "code": "WST101",
+            "credits": 3,
+            "grade": "A",
+            "gradeValue": 4.0,
+            "instructor": "Prof. Santos",
+            "schedule": "MW 10:00-11:30"
+        },
+        {
+            "id": 2,
+            "name": "Systems Analysis and Design",
+            "code": "SAD201",
+            "credits": 3,
+            "grade": "B+",
+            "gradeValue": 3.5,
+            "instructor": "Prof. Reyes",
+            "schedule": "TTh 13:00-14:30"
+        },
+        {
+            "id": 3,
+            "name": "Quantitative Methods",
+            "code": "QM301",
+            "credits": 3,
+            "grade": "B",
+            "gradeValue": 3.0,
+            "instructor": "Prof. Garcia",
+            "schedule": "MW 14:00-15:30"
+        },
+        {
+            "id": 4,
+            "name": "Advanced Database Systems",
+            "code": "ADS401",
+            "credits": 3,
+            "grade": "A-",
+            "gradeValue": 3.7,
+            "instructor": "Prof. Cruz",
+            "schedule": "TTh 10:00-11:30"
+        },
+        {
+            "id": 5,
+            "name": "Systems Integration and Architecture",
+            "code": "SIA501",
+            "credits": 3,
+            "grade": "C+",
+            "gradeValue": 2.5,
+            "instructor": "Prof. Mendoza",
+            "schedule": "F 09:00-12:00"
+        },
+        {
+            "id": 6,
+            "name": "Network Security",
+            "code": "NS601",
+            "credits": 3,
+            "grade": "B-",
+            "gradeValue": 2.7,
+            "instructor": "Prof. Torres",
+            "schedule": "MW 16:00-17:30"
+        }
+    ],
+    "assignments": [
+        {
+            "id": 1,
+            "courseId": 1,
+            "title": "HTML/CSS Project",
+            "dueDate": "2026-08-25",
+            "status": "Pending",
+            "score": null
+        },
+        {
+            "id": 2,
+            "courseId": 1,
+            "title": "JavaScript Quiz",
+            "dueDate": "2026-08-20",
+            "status": "Completed",
+            "score": 92
+        },
+        {
+            "id": 3,
+            "courseId": 2,
+            "title": "Use Case Diagram",
+            "dueDate": "2026-08-22",
+            "status": "Pending",
+            "score": null
+        },
+        {
+            "id": 4,
+            "courseId": 2,
+            "title": "System Proposal",
+            "dueDate": "2026-08-15",
+            "status": "Completed",
+            "score": 88
+        },
+        {
+            "id": 5,
+            "courseId": 3,
+            "title": "Statistics Homework",
+            "dueDate": "2026-08-23",
+            "status": "Pending",
+            "score": null
+        },
+        {
+            "id": 6,
+            "courseId": 3,
+            "title": "Data Analysis Report",
+            "dueDate": "2026-08-18",
+            "status": "Completed",
+            "score": 76
+        },
+        {
+            "id": 7,
+            "courseId": 4,
+            "title": "Database Design",
+            "dueDate": "2026-08-21",
+            "status": "Pending",
+            "score": null
+        },
+        {
+            "id": 8,
+            "courseId": 4,
+            "title": "SQL Project",
+            "dueDate": "2026-08-14",
+            "status": "Completed",
+            "score": 94
+        },
+        {
+            "id": 9,
+            "courseId": 5,
+            "title": "Integration Report",
+            "dueDate": "2026-08-24",
+            "status": "Pending",
+            "score": null
+        },
+        {
+            "id": 10,
+            "courseId": 6,
+            "title": "Security Audit",
+            "dueDate": "2026-08-26",
+            "status": "Pending",
+            "score": null
+        }
+    ],
+    "attendance": [
+        {
+            "courseId": 1,
+            "date": "2026-08-18",
+            "status": "Present"
+        },
+        {
+            "courseId": 1,
+            "date": "2026-08-16",
+            "status": "Present"
+        },
+        {
+            "courseId": 1,
+            "date": "2026-08-14",
+            "status": "Present"
+        },
+        {
+            "courseId": 2,
+            "date": "2026-08-18",
+            "status": "Present"
+        },
+        {
+            "courseId": 2,
+            "date": "2026-08-16",
+            "status": "Absent"
+        },
+        {
+            "courseId": 2,
+            "date": "2026-08-14",
+            "status": "Present"
+        },
+        {
+            "courseId": 3,
+            "date": "2026-08-18",
+            "status": "Present"
+        },
+        {
+            "courseId": 3,
+            "date": "2026-08-16",
+            "status": "Present"
+        },
+        {
+            "courseId": 4,
+            "date": "2026-08-18",
+            "status": "Present"
+        },
+        {
+            "courseId": 4,
+            "date": "2026-08-16",
+            "status": "Present"
+        },
+        {
+            "courseId": 5,
+            "date": "2026-08-18",
+            "status": "Absent"
+        },
+        {
+            "courseId": 5,
+            "date": "2026-08-11",
+            "status": "Present"
+        },
+        {
+            "courseId": 6,
+            "date": "2026-08-18",
+            "status": "Present"
+        },
+        {
+            "courseId": 6,
+            "date": "2026-08-16",
+            "status": "Present"
+        }
+    ],
+    "activities": [
+        {
+            "date": "2026-08-18 14:30",
+            "activity": "Submitted assignment for Web Systems and Technologies",
+            "status": "Completed"
+        },
+        {
+            "date": "2026-08-18 11:15",
+            "activity": "Attended Systems Analysis & Design lecture",
+            "status": "Present"
+        },
+        {
+            "date": "2026-08-17 16:00",
+            "activity": "Quiz scheduled for Friday - Quantitative Methods",
+            "status": "Pending"
+        },
+        {
+            "date": "2026-08-17 09:30",
+            "activity": "Project proposal approved by professor",
+            "status": "Approved"
+        },
+        {
+            "date": "2026-08-16 13:45",
+            "activity": "Submitted Advanced Database Systems project",
+            "status": "Completed"
+        },
+        {
+            "date": "2026-08-16 10:00",
+            "activity": "Missed Systems Integration and Architecture lecture",
+            "status": "Absent"
+        }
+    ],
+    "gpaHistory": [
+        {
+            "semester": "2025-1",
+            "gpa": 3.20
+        },
+        {
+            "semester": "2025-2",
+            "gpa": 3.35
+        },
+        {
+            "semester": "2026-1",
+            "gpa": 3.30
+        }
+    ]
+}
