@@ -319,11 +319,11 @@ function setupFiltersAndSearch() {
             // Show detailed feedback
             let message = 'Filters applied!';
             if (minCredits && maxCredits) {
-                message = `📊 Showing courses with ${minCredits}-${maxCredits} credits`;
+                message = ` Showing courses with ${minCredits}-${maxCredits} credits`;
             } else if (minCredits) {
-                message = `📊 Showing courses with ${minCredits}+ credits`;
+                message = ` Showing courses with ${minCredits}+ credits`;
             } else if (maxCredits) {
-                message = `📊 Showing courses with ${maxCredits} or fewer credits`;
+                message = `Showing courses with ${maxCredits} or fewer credits`;
             }
             showToast(message, 'success');
         });
@@ -459,8 +459,8 @@ async function renderAlerts() {
                 <div class="flex-grow-1">
                     <strong>${alert.title}</strong>
                     <span>${alert.message}</span>
-                    ${alert.daysUntil ? `<br><small>⏰ ${alert.daysUntil} day${alert.daysUntil > 1 ? 's' : ''} remaining</small>` : ''}
-                    ${alert.rate ? `<br><small>📊 Attendance: ${alert.rate}%</small>` : ''}
+                    ${alert.daysUntil ? `<br><small> ${alert.daysUntil} day${alert.daysUntil > 1 ? 's' : ''} remaining</small>` : ''}
+                    ${alert.rate ? `<br><small> Attendance: ${alert.rate}%</small>` : ''}
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             `;

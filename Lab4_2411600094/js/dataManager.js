@@ -401,9 +401,8 @@ const DataManager = (function() {
                 alerts.push({
                     type: 'deadline',
                     priority: priority,
-                    icon: icon,
                     bgClass: bgClass,
-                    title: `📋 Assignment Due Soon!`,
+                    title: ` Assignment Due Soon!`,
                     message: `"${a.title}" for ${course ? course.code : 'course'} is due in ${daysUntil} day${daysUntil > 1 ? 's' : ''}`,
                     dueDate: a.dueDate,
                     daysUntil: daysUntil
@@ -414,9 +413,8 @@ const DataManager = (function() {
                 alerts.push({
                     type: 'performance',
                     priority: 'danger',
-                    icon: 'bi-graph-down',
                     bgClass: 'bg-danger text-white',
-                    title: `⚠️ Low Performance Alert!`,
+                    title: ` Low Performance Alert!`,
                     message: `${c.name} (${c.code}) has a grade of ${c.grade} (${c.gradeValue.toFixed(1)} GPA). Please seek help.`,
                     courseId: c.id
                 });
@@ -426,9 +424,8 @@ const DataManager = (function() {
                 alerts.push({
                     type: 'attendance',
                     priority: 'warning',
-                    icon: 'bi-person-x-fill',
                     bgClass: 'bg-warning text-dark',
-                    title: `👤 Attendance Alert!`,
+                    title: ` Attendance Alert!`,
                     message: `${a.courseName}: ${a.message}`,
                     courseId: a.courseId,
                     rate: a.attendanceRate
