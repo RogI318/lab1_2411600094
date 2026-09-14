@@ -1,390 +1,204 @@
 /**
- * Charts Module
- * Handles all Chart.js visualizations for the Student Portal Dashboard
+ * Charts Module - Student Portal Admin
  */
 
 const ChartManager = (function() {
     'use strict';
 
-    let gradeChart = null;
-    let courseChart = null;
-    let assignmentChart = null;
-    let attendanceChart = null;
+    let qualityChart = null;
+    let standingChart = null;
+    let topStudentsChart = null;
+    let activityChart = null;
 
-    const colors = {
-        primary: '#FB6F92',
-        secondary: '#FF8FAB',
-        accent: '#FFB3C6',
-        light: '#FFC2D1',
+    const COLORS = {
+        primary:    '#FB6F92',
+        secondary:  '#FF8FAB',
+        accent:     '#FFB3C6',
+        light:      '#FFC2D1',
         background: '#FFE5EC',
-        success: '#e254cb',
-        warning: '#6849af',
-        danger: '#dc3589',
-        info: '#17a2b8'
+        good:       '#28a745',
+        warning:    '#f3a712',
+        danger:     '#dc3545'
     };
 
-    const responsiveOptions = {
+    const baseOptions = {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
             legend: {
                 position: 'bottom',
-                labels: {
-                    boxWidth: 12,
-                    padding: 15,
-                    font: { size: 12 }
-                }
+                labels: { boxWidth: 12, padding: 12, font: { size: 11 } }
             }
         }
     };
 
-    function getGradeChartOptions() {
-        return {
-            ...responsiveOptions,
-            plugins: {
-                ...responsiveOptions.plugins,
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                            const percentage = total > 0 ? ((context.parsed / total) * 100).toFixed(1) : 0;
-                            return `${context.label}: ${context.parsed} courses (${percentage}%)`;
-                        }
-                    }
-                }
-            }
-        };
+    function destroyAll() {
+        if (qualityChart)     { qualityChart.destroy();     qualityChart = null; }
+        if (standingChart)    { standingChart.destroy();    standingChart = null; }
+        if (topStudentsChart) { topStudentsChart.destroy(); topStudentsChart = null; }
+        if (activityChart)    { activityChart.destroy();    activityChart = null; }
     }
 
-    function getCourseChartOptions() {
-        return {
-            ...responsiveOptions,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    max: 4.0,
-                    ticks: {
-                        stepSize: 0.5,
-                        callback: function(value) {
-                            return value.toFixed(1);
-                        }
-                    },
-                    title: {
-                        display: true,
-                        text: 'Grade Points'
-                    }
-                },
-                x: {
-                    ticks: {
-                        maxRotation: 45,
-                        minRotation: 0
-                    }
-                }
+    async function buildQualityChart(ctx) {
+        const data = await DataManager.getQualityPointsByProgram();
+        return new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: data.map(d => d.program.replace('BS ', '')),
+                datasets: [{
+                    label: 'Avg GPA',
+                    data: data.map(d => d.avgGpa),
+                    backgroundColor: [COLORS.primary, COLORS.secondary, COLORS.accent, COLORS.light],
+                    borderColor: '#fff',
+                    borderWidth: 1,
+                    borderRadius: 6
+                }]
             },
-            plugins: {
-                ...responsiveOptions.plugins,
-                legend: { display: false }
-            }
-        };
-    }
-
-    function getAssignmentChartOptions() {
-        return {
-            ...responsiveOptions,
-            plugins: {
-                ...responsiveOptions.plugins,
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                            const percentage = total > 0 ? ((context.parsed / total) * 100).toFixed(1) : 0;
-                            return `${context.label}: ${context.parsed} (${percentage}%)`;
-                        }
-                    }
-                }
-            }
-        };
-    }
-
-    function getAttendanceChartOptions() {
-        return {
-            ...responsiveOptions,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    max: 100,
-                    ticks: {
-                        callback: function(value) {
-                            return value + '%';
-                        }
+            options: {
+                ...baseOptions,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 4.0,
+                        ticks: { stepSize: 0.5, callback: v => v.toFixed(1) },
+                        title: { display: true, text: 'Average GPA' }
                     },
-                    title: {
-                        display: true,
-                        text: 'Attendance Rate (%)'
-                    }
+                    x: { ticks: { maxRotation: 30, minRotation: 0 } }
                 },
-                x: {
-                    ticks: {
-                        maxRotation: 45,
-                        minRotation: 0
-                    }
-                }
+                plugins: { ...baseOptions.plugins, legend: { display: false } }
+            }
+        });
+    }
+
+    async function buildStandingChart(ctx) {
+        const dist = await DataManager.getStandingDistribution();
+        const labels = Object.keys(dist);
+        const values = labels.map(l => dist[l]);
+        const bg = labels.map(l => {
+            if (l === 'Good Standing') return COLORS.good;
+            if (l === 'At Risk')       return COLORS.warning;
+            return COLORS.danger;
+        });
+
+        return new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: values,
+                    backgroundColor: bg,
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
             },
-            plugins: {
-                ...responsiveOptions.plugins,
-                legend: { display: false }
-            }
-        };
-    }
-
-    function destroyCharts() {
-        if (gradeChart) { gradeChart.destroy(); gradeChart = null; }
-        if (courseChart) { courseChart.destroy(); courseChart = null; }
-        if (assignmentChart) { assignmentChart.destroy(); assignmentChart = null; }
-        if (attendanceChart) { attendanceChart.destroy(); attendanceChart = null; }
-    }
-
-    async function createGradeChart(ctx) {
-        try {
-            const distribution = await DataManager.getGradeDistribution();
-            console.log('Grade distribution:', distribution);
-            
-            const gradeOrder = ['A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D', 'F'];
-            const sortedLabels = [];
-            const sortedData = [];
-            
-            gradeOrder.forEach(grade => {
-                if (distribution[grade]) {
-                    sortedLabels.push(grade);
-                    sortedData.push(distribution[grade]);
+            options: {
+                ...baseOptions,
+                cutout: '55%',
+                plugins: {
+                    ...baseOptions.plugins,
+                    tooltip: {
+                        callbacks: {
+                            label: function(ctx) {
+                                const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+                                const pct = total ? ((ctx.parsed / total) * 100).toFixed(1) : 0;
+                                return `${ctx.label}: ${ctx.parsed} (${pct}%)`;
+                            }
+                        }
+                    }
                 }
-            });
-
-            if (sortedLabels.length === 0) {
-                sortedLabels.push('No Data');
-                sortedData.push(1);
             }
-
-            return new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: sortedLabels,
-                    datasets: [{
-                        data: sortedData,
-                        backgroundColor: sortedData.length > 1 ? [
-                            '#db3295', '#d32abc', '#ec6ec2', '#bb59be', '#ac75cc',
-                            '#ad3e76', '#d35400', '#e74c3c', '#c0392b', '#dc3545'
-                        ] : ['#ddd'],
-                        borderWidth: 2,
-                        borderColor: '#fff'
-                    }]
-                },
-                options: getGradeChartOptions()
-            });
-        } catch (error) {
-            console.error('Error creating grade chart:', error);
-            return new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['No Data'],
-                    datasets: [{ data: [1], backgroundColor: ['#ddd'], borderWidth: 2, borderColor: '#fff' }]
-                },
-                options: getGradeChartOptions()
-            });
-        }
+        });
     }
 
-    async function createCourseChart(ctx) {
-        try {
-            const performance = await DataManager.getCoursePerformance();
-            console.log('Course performance:', performance);
-            
-            const labels = performance.map(p => p.name);
-            const data = performance.map(p => p.gradeValue);
-
-            if (labels.length === 0) {
-                labels.push('No Data');
-                data.push(0);
+    async function buildTopStudentsChart(ctx) {
+        const top = await DataManager.getTopStudents(5);
+        return new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: top.map(s => s.name),
+                datasets: [{
+                    label: 'GPA',
+                    data: top.map(s => s.gpa),
+                    backgroundColor: COLORS.primary,
+                    borderRadius: 6,
+                    borderColor: '#fff',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                ...baseOptions,
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 4.0,
+                        ticks: { stepSize: 0.5, callback: v => v.toFixed(1) }
+                    }
+                },
+                plugins: { ...baseOptions.plugins, legend: { display: false } }
             }
-
-            return new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Grade Points',
-                        data: data,
-                        backgroundColor: data.map(value => {
-                            if (value >= 3.5) return '#d32abc';
-                            if (value >= 3.0) return '#bb4c8d';
-                            if (value >= 2.5) return '#ec6ec2';
-                            if (value >= 2.0) return '#ac75cc';
-                            return '#dc3545';
-                        }),
-                        borderColor: '#fff',
-                        borderWidth: 1,
-                        borderRadius: 4
-                    }]
-                },
-                options: getCourseChartOptions()
-            });
-        } catch (error) {
-            console.error('Error creating course chart:', error);
-            return new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['No Data'],
-                    datasets: [{ label: 'Grade Points', data: [0], backgroundColor: ['#ddd'], borderColor: '#fff', borderWidth: 1, borderRadius: 4 }]
-                },
-                options: getCourseChartOptions()
-            });
-        }
+        });
     }
 
-    async function createAssignmentChart(ctx) {
-        try {
-            const statuses = await DataManager.getAssignmentStatus();
-            console.log('Assignment status:', statuses);
-            
-            const labels = Object.keys(statuses);
-            const data = labels.map(label => statuses[label]);
+    async function buildActivityChart(ctx) {
+        const counts = await DataManager.getActivityStats();
+        const labels = Object.keys(counts);
+        const values = labels.map(k => counts[k]);
+        const palette = {
+            'Grades':     '#FB6F92',
+            'Attendance': '#17a2b8',
+            'Enrollment': '#28a745',
+            'Advisory':   '#f3a712'
+        };
 
-            const statusColors = {
-                'Completed': colors.success,
-                'Pending': colors.warning,
-                'In Progress': colors.info
-            };
-
-            if (labels.length === 0) {
-                labels.push('No Data');
-                data.push(1);
+        return new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Events',
+                    data: values,
+                    backgroundColor: labels.map(l => palette[l]),
+                    borderColor: '#fff',
+                    borderWidth: 2,
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                ...baseOptions,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { stepSize: 1, precision: 0 },
+                        title: { display: true, text: 'Number of Events' }
+                    }
+                },
+                plugins: { ...baseOptions.plugins, legend: { display: false } }
             }
-
-            const backgroundColors = labels.map(label => statusColors[label] || colors.primary);
-
-            return new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        data: data,
-                        backgroundColor: backgroundColors,
-                        borderWidth: 2,
-                        borderColor: '#fff'
-                    }]
-                },
-                options: getAssignmentChartOptions()
-            });
-        } catch (error) {
-            console.error('Error creating assignment chart:', error);
-            return new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    labels: ['No Data'],
-                    datasets: [{ data: [1], backgroundColor: ['#ddd'], borderWidth: 2, borderColor: '#fff' }]
-                },
-                options: getAssignmentChartOptions()
-            });
-        }
-    }
-
-    async function createAttendanceChart(ctx) {
-        try {
-            const trend = await DataManager.getAttendanceTrend();
-            console.log('Attendance trend:', trend);
-            
-            const labels = trend.map(t => t.week);
-            const data = trend.map(t => t.rate);
-
-            if (labels.length === 0) {
-                labels.push('No Data');
-                data.push(0);
-            }
-
-            return new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Attendance Rate',
-                        data: data,
-                        borderColor: colors.primary,
-                        backgroundColor: colors.primary + '33',
-                        fill: true,
-                        tension: 0.4,
-                        pointBackgroundColor: colors.primary,
-                        pointBorderColor: '#fff',
-                        pointBorderWidth: 2,
-                        pointRadius: 6,
-                        pointHoverRadius: 8
-                    }]
-                },
-                options: getAttendanceChartOptions()
-            });
-        } catch (error) {
-            console.error('Error creating attendance chart:', error);
-            return new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['No Data'],
-                    datasets: [{
-                        label: 'Attendance Rate',
-                        data: [0],
-                        borderColor: colors.primary,
-                        backgroundColor: colors.primary + '33',
-                        fill: true,
-                        tension: 0.4
-                    }]
-                },
-                options: getAttendanceChartOptions()
-            });
-        }
+        });
     }
 
     return {
         initCharts: async function() {
-            console.log('Initializing charts...');
-            destroyCharts();
-
-            const gradeCanvas = document.getElementById('gradeChart');
-            const courseCanvas = document.getElementById('courseChart');
-            const assignmentCanvas = document.getElementById('assignmentChart');
-            const attendanceCanvas = document.getElementById('attendanceChart');
+            destroyAll();
+            const qualityCanvas     = document.getElementById('qualityChart');
+            const standingCanvas    = document.getElementById('standingChart');
+            const topStudentsCanvas = document.getElementById('topStudentsChart');
+            const activityCanvas    = document.getElementById('activityChart');
 
             try {
-                if (gradeCanvas) {
-                    const ctx = gradeCanvas.getContext('2d');
-                    gradeChart = await createGradeChart(ctx);
-                    console.log('Grade chart created');
-                }
-
-                if (courseCanvas) {
-                    const ctx = courseCanvas.getContext('2d');
-                    courseChart = await createCourseChart(ctx);
-                    console.log('Course chart created');
-                }
-
-                if (assignmentCanvas) {
-                    const ctx = assignmentCanvas.getContext('2d');
-                    assignmentChart = await createAssignmentChart(ctx);
-                    console.log('Assignment chart created');
-                }
-
-                if (attendanceCanvas) {
-                    const ctx = attendanceCanvas.getContext('2d');
-                    attendanceChart = await createAttendanceChart(ctx);
-                    console.log('Attendance chart created');
-                }
-            } catch (error) {
-                console.error('Error initializing charts:', error);
+                if (qualityCanvas)     qualityChart     = await buildQualityChart(qualityCanvas.getContext('2d'));
+                if (standingCanvas)    standingChart    = await buildStandingChart(standingCanvas.getContext('2d'));
+                if (topStudentsCanvas) topStudentsChart = await buildTopStudentsChart(topStudentsCanvas.getContext('2d'));
+                if (activityCanvas)    activityChart    = await buildActivityChart(activityCanvas.getContext('2d'));
+                console.log('Charts rendered');
+            } catch (err) {
+                console.error('Chart init error:', err);
             }
         },
 
-        updateCharts: function() {
-            console.log('Updating charts...');
-            this.initCharts();
-        },
-
-        handleResize: function() {}
+        updateCharts: async function() {
+            await this.initCharts();
+        }
     };
 })();
