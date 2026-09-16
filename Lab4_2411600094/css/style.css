@@ -3,7 +3,7 @@
     --bs-primary-rgb: 251, 111, 146;
     --bs-secondary: #FF8FAB;
     --bs-success: #28a745;
-    --bs-info: #17a2b8;
+    --bs-info: COLORS.secondary;
     --bs-warning: #f3a712;
     --bs-danger: #dc3545;
 
